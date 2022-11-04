@@ -16,16 +16,18 @@ const tweets = [{
   tweet: "eu amo o hub"
 }];
 
-app.get('/sign-up', (req, res) => {
+app.post('/sign-up', (req, res) => {
+
+  console.log(req.body)
 
   const newUser = {
-    username: 'Quadrado',
-    avatar: "https://super.abril.com.br/wp-content/uploads/2020/09/04-09_gato_SITE.jpg?quality=70&strip=info"
+    username: req.body.username,
+    avatar: req.body.avatar
   }
 
   users.push(newUser);
 
-  res.send(users);
+  res.send("OK");
 });
 
 
