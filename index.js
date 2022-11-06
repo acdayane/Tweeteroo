@@ -15,14 +15,15 @@ const users = [{
 const tweets = [{
   id: 1,
   username: "bobesponja",
-  tweet: "eu amo o hub"
-}];
+  tweet: "eu amo o hub",
+  avatar: "https://super.abril.com.br/wp-content/uploads/2020/09/04-09_gato_SITE.jpg?quality=70&strip=info"
+}]
 
 app.post('/sign-up', (req, res) => {
 
   const newUser = {
     id: users.length + 1,
-    username: req.body.username,
+    username: req.body.username.toLowerCase(),
     avatar: req.body.avatar
   }
 
@@ -38,8 +39,9 @@ app.post ('/tweets', (req, res) => {
 
   const newTweet = {
     id: tweets.length + 1,
-    username: req.body.username,
+    username: req.body.username.toLowerCase(),
     tweet: req.body.tweet,
+    avatar: users[0].avatar
   }
 
   tweets.unshift(newTweet);
@@ -54,7 +56,7 @@ app.get ('/tweets', (req, res) => {
 
   const tenTweets = [];
 
-  for (let i=0; i<10; i++){
+  for (let i=0; i< Math.min(10,tweets.length); i++){
    tenTweets.push(tweets[i])
   }
 
