@@ -38,9 +38,7 @@ app.post('/sign-up', (req, res) => {
 
   users.unshift(newUser);
 
-  res.send("OK");
-
-  console.log(users)
+  res.status(201).send("OK");
 
 });
 
@@ -58,15 +56,13 @@ app.post ('/tweets', (req, res) => {
   const newTweet = {
     id: tweets.length + 1,
     username: username.toLowerCase(),
-    tweet: req.body.tweet,
+    tweet: tweet,
     avatar: users[0].avatar
   }
 
   tweets.unshift(newTweet);
 
-  res.send("OK");
-
-  console.log(tweets)
+  res.status(201).send("OK");
 
 });
 
@@ -78,9 +74,16 @@ app.get ('/tweets', (req, res) => {
    tenTweets.push(tweets[i])
   }
 
-  res.send(tenTweets)
-  console.log(tenTweets)
+  res.send(tenTweets);
+});
 
+app.get("/tweets/:username", (req, res) => {
+
+  const username = req.params.username;
+
+  const userTweets = tweets.filter((obj) => obj.username === username);
+
+  res.send(userTweets);
 });
 
 app.listen(5000, () => console.log('App is running in port 5000'));
