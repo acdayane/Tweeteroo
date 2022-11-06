@@ -21,10 +21,19 @@ const tweets = [{
 
 app.post('/sign-up', (req, res) => {
 
+  const { username, avatar } = req.body;
+
+  if (!username || !avatar) {
+
+    res.status(400).send("Todos os campos são obrigatórios");
+		return
+    
+  }  
+
   const newUser = {
     id: users.length + 1,
-    username: req.body.username.toLowerCase(),
-    avatar: req.body.avatar
+    username: username.toLowerCase(),
+    avatar: avatar
   }
 
   users.unshift(newUser);
@@ -37,9 +46,18 @@ app.post('/sign-up', (req, res) => {
 
 app.post ('/tweets', (req, res) => {
 
+  const { username, tweet } = req.body;
+
+  if (!username || !tweet) {
+
+    res.status(400).send("Todos os campos são obrigatórios");
+		return
+    
+  } 
+
   const newTweet = {
     id: tweets.length + 1,
-    username: req.body.username.toLowerCase(),
+    username: username.toLowerCase(),
     tweet: req.body.tweet,
     avatar: users[0].avatar
   }
